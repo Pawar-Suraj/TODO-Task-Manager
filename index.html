@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <style>
-    .list-container{
+    .list-container {
         display: block;
         width: 300px;
         height: 350px;
@@ -18,49 +18,55 @@
         border-radius: 5px;
         border: solid grey 0.2px;
     }
+
     .input-container {
         display: flex;
         justify-content: center;
         margin-top: 20px;
     }
-    .todoItem{
+
+    .todoItem {
         font-size: 25px;
         font-weight: bolder;
         text-align: center;
         padding: auto;
         margin: 5px 3px;
         border: solid grey 1px;
-        border-radius:5px;
+        border-radius: 5px;
         background-color: rgb(154, 249, 71);
     }
+
     .input-body {
         display: flex;
         flex-direction: column;
     }
-    #myInput{
+
+    #myInput {
         font-size: 25px;
         border-radius: 15px;
         border: solid 2px grey;
         font-weight: lighter;
     }
-    #btn-add{
-        padding:10px;
+
+    #btn-add {
+        padding: 10px;
         font-size: 25px;
         display: block;
         width: auto;
         margin: 10px auto;
-        border-radius: 15px;       
+        border-radius: 15px;
     }
-    #myCheckbox{
+
+    #myCheckbox {
         width: 20px;
         height: 20px;
-        float: left;      
+        float: left;
     }
 </style>
 
 <body>
     <div class="list-container" id="list-container">
-        
+
     </div>
 
 
@@ -68,7 +74,7 @@
 
         <div class="input-body">
             <div class="input-container-text">
-                <input type="text" id="myInput" placeholder="Enter task here"/>
+                <input type="text" id="myInput" placeholder="Enter task here" />
             </div>
             <div class="input-container-button">
                 <button onclick="add()" id="btn-add">Add</button>
@@ -77,21 +83,30 @@
     </div>
     <script>
         const todoList = [];
+        const storedTodoList = localStorage.getItem("todoList");
+        if (storedTodoList) {
+            todoList = JSON.parse(storedTodoList);
+        }
 
         function add() {
             const inputElement = document.getElementById('myInput');
-            todoList.push(inputElement.value);
-            inputElement.value = "";
-            rendertodoList();
+      const newTodo = inputElement.value.trim(); // Trim leading/trailing whitespace
 
+      if (newTodo) {
+        todoList.push(newTodo);
+        inputElement.value = "";
+        renderTodoList();
+        // Save updated todo list to local storage
+        localStorage.setItem("todoList", JSON.stringify(todoList));
+      }
         }
 
         function rendertodoList() {
-                const listContainer = document.getElementById('list-container');
-                listContainer.innerHTML ="";
-                for(const todoItem of todoList){
-                    listContainer.innerHTML += `<div class="todoItem"><input type="checkbox" id="myCheckbox"/>${todoItem}</div>`;
-                }
+            const listContainer = document.getElementById('list-container');
+            listContainer.innerHTML = "";
+            for (const todoItem of todoList) {
+                listContainer.innerHTML += `<div class="todoItem"><input type="checkbox" id="myCheckbox"/>${todoItem}</div>`;
+            }
         }
     </script>
 </body>
