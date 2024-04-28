@@ -90,15 +90,15 @@
 
         function add() {
             const inputElement = document.getElementById('myInput');
-      const newTodo = inputElement.value.trim(); // Trim leading/trailing whitespace
+            const newTodo = inputElement.value.trim(); // Trim leading/trailing whitespace
 
-      if (newTodo) {
-        todoList.push(newTodo);
-        inputElement.value = "";
-        renderTodoList();
-        // Save updated todo list to local storage
-        localStorage.setItem("todoList", JSON.stringify(todoList));
-      }
+            if (newTodo) {
+                todoList.push(newTodo);
+                inputElement.value = "";
+                renderTodoList();
+                // Save updated todo list to local storage
+                localStorage.setItem("todoList", JSON.stringify(todoList));
+            }
         }
 
         function rendertodoList() {
@@ -108,6 +108,8 @@
                 listContainer.innerHTML += `<div class="todoItem"><input type="checkbox" id="myCheckbox"/>${todoItem}</div>`;
             }
         }
+
+        renderTodoList();
     </script>
 </body>
 
