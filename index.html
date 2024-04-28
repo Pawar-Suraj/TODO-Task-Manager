@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .input-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .input-body {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<body>
+    <div class="list-container">
+    </div>
+
+
+    <div class="input-container">
+
+        <div class="input-body">
+            <div class="input-container-text">
+                <input type="text" id="myInput" placeholder="Enter task here">
+            </div>
+            <div class="input-container-button">
+                <button onclick="add()">Add</button>
+                <button onclick="show()">show</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const todoList = [];
+
+        function add() {
+            const inputElement = document.getElementById('myInput');
+            todoList.push(inputElement.value);
+            inputElement.value = "";
+
+        }
+
+        function show() {
+
+        }
+    </script>
+</body>
+
+</html>
