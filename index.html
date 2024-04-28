@@ -2,115 +2,117 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <style>
-    .list-container {
-        display: block;
-        width: 300px;
-        height: 350px;
-        padding: 25px 25px;
-        overflow-y: scroll;
-        background-color: whitesmoke;
-        margin: 20px auto;
-        border-radius: 5px;
-        border: solid grey 0.2px;
-    }
+  .list-container {
+    display: block;
+    width: 300px;
+    height: 350px;
+    padding: 25px 25px;
+    overflow-y: scroll;
+    background-color: whitesmoke;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: solid grey 0.2px;
+  }
 
-    .input-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
+  .input-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 
-    .todoItem {
-        font-size: 25px;
-        font-weight: bolder;
-        text-align: center;
-        padding: auto;
-        margin: 5px 3px;
-        border: solid grey 1px;
-        border-radius: 5px;
-        background-color: rgb(154, 249, 71);
-    }
+  .todoItem {
+    font-size: 25px;
+    font-weight: bolder;
+    text-align: center;
+    padding: auto;
+    margin: 5px 3px;
+    border: solid grey 1px;
+    border-radius: 5px;
+    background-color: rgb(154, 249, 71);
+  }
 
-    .input-body {
-        display: flex;
-        flex-direction: column;
-    }
+  .input-body {
+    display: flex;
+    flex-direction: column;
+  }
 
-    #myInput {
-        font-size: 25px;
-        border-radius: 15px;
-        border: solid 2px grey;
-        font-weight: lighter;
-    }
+  #myInput {
+    font-size: 25px;
+    border-radius: 15px;
+    border: solid 2px grey;
+    font-weight: lighter;
+  }
 
-    #btn-add {
-        padding: 10px;
-        font-size: 25px;
-        display: block;
-        width: auto;
-        margin: 10px auto;
-        border-radius: 15px;
-    }
+  #btn-add {
+    padding: 10px;
+    font-size: 25px;
+    display: block;
+    width: auto;
+    margin: 10px auto;
+    border-radius: 15px;
+  }
 
-    #myCheckbox {
-        width: 20px;
-        height: 20px;
-        float: left;
-    }
+  #myCheckbox {
+    width: 20px;
+    height: 20px;
+    float: left;
+  }
 </style>
 
 <body>
-    <div class="list-container" id="list-container">
+  <div class="list-container" id="list-container">
 
+  </div>
+
+  <div class="input-container">
+
+    <div class="input-body">
+      <div class="input-container-text">
+        <input type="text" id="myInput" placeholder="Enter task here" />
+      </div>
+      <div class="input-container-button">
+        <button onclick="add()" id="btn-add">Add</button>
+      </div>
     </div>
+  </div>
 
+  <script>
+    let todoList = [];
 
-    <div class="input-container">
+    // Check for existing data in local storage on page load
+    const storedTodoList = localStorage.getItem("todoList");
+    if (storedTodoList) {
+      todoList = JSON.parse(storedTodoList);
+    }
 
-        <div class="input-body">
-            <div class="input-container-text">
-                <input type="text" id="myInput" placeholder="Enter task here" />
-            </div>
-            <div class="input-container-button">
-                <button onclick="add()" id="btn-add">Add</button>
-            </div>
-        </div>
-    </div>
-    <script>
-        const todoList = [];
-        const storedTodoList = localStorage.getItem("todoList");
-        if (storedTodoList) {
-            todoList = JSON.parse(storedTodoList);
-        }
+    function add() {
+      const inputElement = document.getElementById('myInput');
+      const newTodo = inputElement.value.trim(); // Trim leading/trailing whitespace
 
-        function add() {
-            const inputElement = document.getElementById('myInput');
-            const newTodo = inputElement.value.trim(); // Trim leading/trailing whitespace
-
-            if (newTodo) {
-                todoList.push(newTodo);
-                inputElement.value = "";
-                renderTodoList();
-                // Save updated todo list to local storage
-                localStorage.setItem("todoList", JSON.stringify(todoList));
-            }
-        }
-
-        function rendertodoList() {
-            const listContainer = document.getElementById('list-container');
-            listContainer.innerHTML = "";
-            for (const todoItem of todoList) {
-                listContainer.innerHTML += `<div class="todoItem"><input type="checkbox" id="myCheckbox"/>${todoItem}</div>`;
-            }
-        }
-
+      if (newTodo) {
+        todoList.push(newTodo);
+        inputElement.value = "";
         renderTodoList();
-    </script>
+        // Save updated todo list to local storage
+        localStorage.setItem("todoList", JSON.stringify(todoList));
+      }
+    }
+
+    function renderTodoList() {
+      const listContainer = document.getElementById('list-container');
+      listContainer.innerHTML = "";
+      for (const todoItem of todoList) {
+        listContainer.innerHTML += `<div class="todoItem"><input type="checkbox" id="myCheckbox"/>${todoItem}</div>`;
+      }
+    }
+
+    renderTodoList(); // Render initial list (if any)
+  </script>
 </body>
 
 </html>
